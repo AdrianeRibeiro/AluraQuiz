@@ -16,13 +16,22 @@ function LoadingWidget() {
         Carregando...
       </Widget.Header>
       <Widget.Content>
-        [Desafio do Loading]
+
       </Widget.Content>
     </Widget>
   )
 }
 
 function ResultWidget({ results }) {
+  const listingResult = results.map((result, index) => {
+    return(
+      <li key={`result_${result}`}>
+        { 
+        `#${index + 1} - ${result === true ? 'Acertou' : 'Errou'}`
+        }
+      </li>
+    )})
+
   return (
     <Widget>
       <Widget.Header>
@@ -30,31 +39,10 @@ function ResultWidget({ results }) {
       </Widget.Header>
       <Widget.Content>
         <p> 
-          Você acertou
-          {' '}
-          {/* {results.reduce((somatoriaAtual, resultAtual) => { 
-            const isAcerto = resultAtual === true
-            if (isAcerto) {
-              return somatoriaAtual + 1
-            }
-            return somatoriaAtual
-          }, 0)} */}
-          {results.filter(x => x).length}
-          {' '}
-          perguntas 
+          {`Você acertou ${results.filter(x => x).length} pergunta(s)`}
         </p>
         <ul>
-          {results.map((result, index) => {
-            return(
-              <li key={`result_${result}`}>
-                #
-                {index * 1} 
-                {' '}
-                Resultado:
-                {result === true ? 'Acertou' : 'Errou'}
-              </li>
-            )})
-          }
+          {listingResult}
         </ul>
       </Widget.Content>
     </Widget>
@@ -71,8 +59,8 @@ function QuestionWidget({ question, totalQuestions, questionIndex, onSubmit, add
   return (
     <Widget>
       <Widget.Header>
-        <BackLinkArrow href="/" />
-        <h3>
+      <BackLinkArrow href="/" />
+      <h3>
           {` Pergunta ${questionIndex + 1} de ${totalQuestions} `}
         </h3>
       </Widget.Header>
